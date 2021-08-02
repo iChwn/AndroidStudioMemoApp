@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -57,15 +58,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //insert user
     public Boolean insertUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("username", username);
-        contentValues.put("password", password);
-        long insert = db.insert("user", null, contentValues);
-        if(insert == -1) {
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username LIKE '%" + username + "%'", null);
+        Log.d("anjay", String.valueOf(cursor.getCount()));
+        if (cursor.getCount() != 0) {
             return  false;
         } else {
-            return  true;
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("username", username);
+            contentValues.put("password", password);
+            long insert = db.insert("user", null, contentValues);
+            if(insert == -1) {
+                return  false;
+            } else {
+                return  true;
+            }
         }
+//
     }
 
     //check login

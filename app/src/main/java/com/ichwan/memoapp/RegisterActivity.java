@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -24,15 +25,14 @@ public class RegisterActivity extends AppCompatActivity {
         username = (EditText)findViewById(R.id.input_usernameRegist);
         password = (EditText)findViewById(R.id.input_passwordRegist);
         passwordConf = (EditText)findViewById(R.id.input_passwordConfRegist);
-        login = (Button)findViewById(R.id.login_btnRegist);
         register = (Button)findViewById(R.id.register_btnRegist);
 
-        //login btn on click
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public  void onClick(View v) {
-                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
+        // daftar text on click
+        TextView textRegis = (TextView)findViewById(R.id.sigin_text);
+        textRegis.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(registerIntent);
                 finish();
             }
         });
